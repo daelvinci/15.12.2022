@@ -9,7 +9,9 @@ namespace _12._15._2022
     {
         static void Main(string[] args)
         {
-          
+            string ad = "   Elvin bilalov";
+            ad = ad.Trim();
+            Console.WriteLine(FullOrName(ref ad));
         }
 
 
@@ -17,53 +19,30 @@ namespace _12._15._2022
 
 
         #region - Verilmiş string dəyərindəki bütün sözlərin arasında bir boşluq qalacaq vəziyyətə salan metod.
-        static void trim(ref string yazi)
+        static string Trim(ref string yazi)
         {
-            int count = 0;
+
             string newstr = "";
-            int FirstIndex = -1;
-            int LastIndex = -1;
+
 
             for (int i = 0; i < yazi.Length; i++)
             {
-                if (yazi[i] != ' ')
+                if (yazi[i] == ' ' && yazi[i++] == ' ')
                 {
-                    FirstIndex = i;
-                    break;
-                }
-            }
+                    continue;
 
-            for (int i = yazi.Length - 1; i >= 0; i--)
-            {
-                if (yazi[i] != ' ')
-                {
-                    LastIndex = i;
-                    break;
-                }
-            }
-
-            for (int i = FirstIndex; i <= LastIndex; i++)
-            {
-                if (yazi[i] == ' ')
-                {
-                    count++;
-
-                    if (count == 2)
-                    {
-                        count--;
-                        continue;
-                    }
-                    else
-                        newstr += yazi[i];
                 }
                 else
                 {
                     newstr += yazi[i];
-                    count = 0;
                 }
             }
-            yazi = newstr;
+            return yazi = newstr;
         }
+
+
+
+
         #endregion
         #region - Verilmiş string dəyərdəki sözlərin sayını tapan metod (boşluqlarla ayrılmış bütün ifadələr
         static int StrCount(string yazi)
@@ -143,14 +122,13 @@ namespace _12._15._2022
 
         #endregion
         #region - Verilmiş string dəyərin bir fullname olub olmadığını yoxlayan metod.(Dəyərin fullname olma şərti daxilində yalnız hərflərin ola bilməsi, yalnız 2 sözdən ibarət olması və hər bir sözün böyük hərfə başlayıb kiçik hərflərlə davam etməsidir.
-        static bool FullOrName(string ad)
+        static bool FullOrName(ref string ad)
         {
             bool IsDigit = false;
             bool Length = false;
             bool IsUpper = false;
-            bool fullorname = false;
             bool Islower = false;
-           
+
             ad = ad.Trim();
 
             string[] split = new string[2];
@@ -160,36 +138,54 @@ namespace _12._15._2022
             {
                 for (int j = 0; j < split.Length; j++)
                 {
-                   
+
 
                     for (int i = 0; i < split[j].Length; i++)
                     {
                         if (char.IsDigit(split[j][i]))
                         {
-                            IsDigit = true;
+                            IsDigit = true; 
                         }
 
                         else if (char.IsUpper(split[j][0]))
                         {
+
                             IsUpper = true;
 
-
                         }
-                        while (char.IsLower(split[j][i]))
+
+                        if (!char.IsLower(split[j][i]))
                         {
-                            if (!char.IsLower(split[j][i]))
+                            if (i == 0)
                             {
-                                Islower = false;
-                                break;
+                                continue;
                             }
-                            Islower = true;
-
-                           
-
+                          
                         }
+                        else
+                        {
+                            Islower = true;
+                        }
+                    }
+
                       
 
-                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
 
 
                 }
@@ -201,15 +197,11 @@ namespace _12._15._2022
 
             if (Length == false || IsUpper == false || IsDigit == true || Islower == false)
             {
-                return fullorname;
+                return false;
             }
 
             else
-                return fullorname= true;
-
-
-
-
+                return true;
         }
 
         #endregion
