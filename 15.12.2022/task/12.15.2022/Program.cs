@@ -142,7 +142,7 @@ namespace _12._15._2022
 
                     for (int i = 0; i < split[j].Length; i++)
                     {
-                        if (char.IsDigit(split[j][i]))
+                        if (Char.IsLetterOrDigit(split[j][i]))
                         {
                             IsDigit = true; 
                         }
@@ -169,23 +169,6 @@ namespace _12._15._2022
                     }
 
                       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
 
 
                 }
